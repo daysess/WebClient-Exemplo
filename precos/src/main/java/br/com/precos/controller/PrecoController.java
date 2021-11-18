@@ -15,8 +15,12 @@ import br.com.precos.model.Preco;
 public class PrecoController {
 
 	@GetMapping("/{idProduto}")
-	public ResponseEntity<Preco> obterPreco(@PathVariable Integer idProduto){
+	public ResponseEntity<Preco> obterPreco(@PathVariable Integer idProduto) throws Exception{
 		Preco preco = new Preco(idProduto, new BigDecimal(3750));
+		
+		//Para validar a resposta do webClient
+		Thread.sleep(3000);
+				
 		return ResponseEntity.ok(preco);
 	}
 	

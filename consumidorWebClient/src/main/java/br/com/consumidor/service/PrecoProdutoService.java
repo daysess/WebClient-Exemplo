@@ -12,19 +12,30 @@ import reactor.core.publisher.Mono;
 public class PrecoProdutoService {
 
 	@Autowired
-	private WebClient webClient;
+	private WebClient webClientProdutos;
+	
+	@Autowired
+	private WebClient webClientPrecos;
 	
 	public ProdutoComPreco obterPorCodigo(Integer idProduto) {
 		//WebClient webCliente = WebClient.create("http://localhost:8080");
 		
-		Mono<ProdutoComPreco> monoProduto = this.webClient
+		Mono<ProdutoComPreco> monoProduto = this.webClientProdutos
 													.method(HttpMethod.GET)
 													.uri("/produtos/{id}", idProduto)
 													.retrieve()
 													.bodyToMono(ProdutoComPreco.class);
 		
+		Mono<ProdutoComPreco> monoPreco = this.webClientPrecos
+											.method(HttpMethod.GET)
+											.uri("/precos/{id}", idProduto)
+											.retrieve()
+											.bodyToMono(ProdutoComPreco.class);
 		
 		ProdutoComPreco produto = monoProduto.block();
+		ProdutoComPreco preco = monoPreco.block();
+		
+		produto.setPreco(preco.getPreco());
 		
 		return produto;
 	}

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consumidor.model.ProdutoComPreco;
@@ -18,6 +19,12 @@ public class PrecoProdutoController {
 	@GetMapping("/produto/{idProduto}/preco")
 	public ResponseEntity<ProdutoComPreco> obterProdutoComPreco(@PathVariable Integer idProduto){
 		ProdutoComPreco produtoComPreco = this.precoProdutoService.obterPorCodigo(idProduto);
+		return ResponseEntity.ok(produtoComPreco);
+	}
+	
+	@PostMapping("/produto")
+	public ResponseEntity<ProdutoComPreco> criarProduto(){
+		ProdutoComPreco produtoComPreco = this.precoProdutoService.criarProduto();
 		return ResponseEntity.ok(produtoComPreco);
 	}
 	

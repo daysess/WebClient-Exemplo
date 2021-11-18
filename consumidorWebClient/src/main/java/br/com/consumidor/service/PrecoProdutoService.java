@@ -23,12 +23,10 @@ public class PrecoProdutoService {
 													.retrieve()
 													.bodyToMono(ProdutoComPreco.class);
 		
-		monoProduto.subscribe(p -> {
-			System.out.println("Aqui sim, finalizou de verdade!");
-		});
 		
-		System.out.println("Finalizou...");
-		return null;
+		ProdutoComPreco produto = monoProduto.block();
+		
+		return produto;
 	}
 
 }

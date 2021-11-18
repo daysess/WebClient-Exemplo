@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProdutoComPreco {
 
-	private Integer idProduto;
+	private Integer id;
 	
 	private String nmProduto;
 	
